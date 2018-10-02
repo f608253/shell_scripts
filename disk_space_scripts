@@ -1,0 +1,22 @@
+#To check disk space 
+$ df -h
+
+#To filter out filesystem and find out the percentage of space
+$ df -h | grep -E 'Filesystem|xvda2' | awk '{print $1 " " $5}'
+
+#Output of above command is as below:-
+[ec2-user@ip-172-31-13-62 ~]$ df -h | grep -E 'Filesystem|xvda2' | awk '{print $1 " " $5}'
+Filesystem Use%
+/dev/xvda2 24%
+[ec2-user@ip-172-31-13-62 ~]$
+
+#To cut the % at th end of the Use percentage and get the numeric value of disk % used
+$ df -h | grep -E 'Filesystem|xvda2' | awk '{print $1 " " $5}' | tr -d % or 
+df -h | grep -E 'Filesystem|xvda2' | awk '{print $1 " " $5}' | cut -d '%' -f1 or
+df -kh |grep  "xvda2" | awk '{ print $5 }' | sed 's/%//g'
+
+
+
+
+
+
