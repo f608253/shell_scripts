@@ -36,3 +36,5 @@ if (($size>20));
 echo "Partition /dev/xvda2 is $size full"    
 rm /home/ec2-user/garbage.txt
 fi
+
+#This feature will be addd to feature branch in github
