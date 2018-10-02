@@ -1,0 +1,38 @@
+#!/bin/bash
+
+threshold="20"
+
+i=2
+
+result=`df -kh |grep "xvda2" | awk '{ print $5 }' | sed 's/%//g'`
+
+for percent in $result; do
+
+if ((percent > threshold))
+then
+
+partition=`df -kh | head -$i | tail -1| awk '{print $1}'`
+
+echo "$partition at $(hostname -f) is ${percent}% full"
+
+fi
+
+let i=$i+1
+
+done
+
+
+#!/bin/bash
+
+#Script to check system disk space and remove files on reaching a threshold
+
+echo "Checking disk space of /home/ec2-user"
+df -h /home/ec2-user
+
+size=$(df -h /home/ec2-user | tail -1 | awk '{print $5}' | sed 's/%//g')
+
+if (($size>20));
+    then
+echo "Partition /dev/xvda2 is $size full"    
+rm /home/ec2-user/garbage.txt
+fi
